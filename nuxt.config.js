@@ -8,14 +8,25 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'Base de Conhecimento',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { 
+        rel:"stylesheet", 
+        href:"https://use.fontawesome.com/releases/v5.8.1/css/all.css", 
+        integrity:"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf",
+        crossorigin: "anonymous"
+      },
+      {
+        href: "https://fonts.googleapis.com/css?family=Lato",
+        rel: "stylesheet"
+      }
+
     ]
   },
 
@@ -42,8 +53,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt',
+    'nuxt-fontawesome'
   ],
   /*
   ** Axios module configuration

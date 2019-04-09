@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <app-header />
+    <app-header 
+        title="Tech - Base de Conhecimento"
+        @toggleMenu="changeIcon"
+        :hideToggle="showIcon"
+        />
     <app-menu />
     <app-content>
         <nuxt />
@@ -21,7 +25,17 @@
           appMenu: Menu,
           appContent: Content,
           appFooter: Footer
+        },
+        data(){
+          return {
+            showIcon: false
+          }
+        },
+        methods: {
+          changeIcon(){
+           this.showIcon = !this.showIcon
         }
+      }
     }
 </script>
 
