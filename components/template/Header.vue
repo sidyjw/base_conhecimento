@@ -4,17 +4,21 @@
 			<i class="fa fa-lg" :class="icon"></i>	
 		</a>
 		<h1 class="title"> <nuxt-link to="/"> {{ title }} </nuxt-link>  </h1>
+		<UserGravatar v-if="!hideUserDropdown"/>
 	</header>
 </template>
 
 <script>
 	import { mapMutations } from 'vuex'
+	import UserGravatar from './UserDropdown'
 	export default {
 		name: 'Header',
 		props: {
 			title: String,
-			hideToggle: Boolean
+			hideToggle: Boolean,
+			hideUserDropdown: Boolean
 		},
+		components: { UserGravatar },
 		computed: {
 			icon(){
 				return this.hideToggle && "fa-angle-left" || "fa-angle-down" 
@@ -57,5 +61,6 @@
 
 	header.header > a.toggle:hover{
 		background-color: rgba(0, 0, 0, 0.2);
+		color: #FFF;
 	}
 </style>

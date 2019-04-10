@@ -4,6 +4,7 @@
         title="Tech - Base de Conhecimento"
         @toggleMenu="toggleMenu"
         :hideToggle="isMenuVisible"
+        
         />
     <app-menu />
     <app-content>

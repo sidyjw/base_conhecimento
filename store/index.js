@@ -1,5 +1,9 @@
 export const state = () => ({
 	isMenuVisible: true,
+	user: {
+		name: 'Usuário Mock',
+		email: 'mock@cod3r.com.br'
+	}
 })
 
 export const mutations = {
@@ -17,5 +21,8 @@ export const mutations = {
 export const getters = {
 	isMenuVisible({ isMenuVisible }){
 		return isMenuVisible
+	},
+	user({user}){
+		return user
 	}
 }
