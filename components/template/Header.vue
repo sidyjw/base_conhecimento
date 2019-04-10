@@ -8,6 +8,7 @@
 </template>
 
 <script>
+	import { mapMutations } from 'vuex'
 	export default {
 		name: 'Header',
 		props: {
@@ -16,7 +17,7 @@
 		},
 		computed: {
 			icon(){
-				return this.hideToggle && "fa-angle-down" || "fa-angle-left"  
+				return this.hideToggle && "fa-angle-left" || "fa-angle-down" 
 			}
 		},
 	}

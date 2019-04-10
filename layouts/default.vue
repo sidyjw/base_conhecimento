@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{'hide-menu': !isMenuVisible}">
     <app-header 
         title="Tech - Base de Conhecimento"
-        @toggleMenu="changeIcon"
-        :hideToggle="showIcon"
+        @toggleMenu="toggleMenu"
+        :hideToggle="isMenuVisible"
         />
     <app-menu />
     <app-content>
@@ -18,7 +18,7 @@
     import Menu from '@/components/template/Menu'
     import Content from '@/components/template/Content'
     import Footer from '@/components/template/Footer'
-
+    import { mapGetters, mapMutations } from 'vuex'
     export default{
         components:{
           appHeader: Header,
@@ -26,16 +26,12 @@
           appContent: Content,
           appFooter: Footer
         },
-        data(){
-          return {
-            showIcon: false
-          }
-        },
         methods: {
-          changeIcon(){
-           this.showIcon = !this.showIcon
+          ...mapMutations(['toggleMenu'])
+        },
+        computed: {
+          ...mapGetters(['isMenuVisible']) 
         }
-      }
     }
 </script>
 
@@ -60,5 +56,12 @@
           "header header"
           "menu content"
           "menu footer";
+    }
+
+    #app.hide-menu{
+      grid-template-areas: 
+          "header header"
+          "content content"
+          "footer footer";
     }
 </style>
