@@ -54,6 +54,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/toast',
     'nuxt-fontawesome',
     'bootstrap-vue/nuxt'
   ],
@@ -62,6 +63,26 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+  },
+
+  /*
+  ** Toast module configuration
+  */
+  toast: { // Global configuration
+    iconPack: 'fontawesome',
+    duration: 3000,
+    register: [ // Register custom toasts
+      {
+        name: 'defaultSuccess',
+        message: 'Operação realizada com sucesso!',
+        options: { type: 'success', icon: 'check'}
+      },
+      // {
+      //   name: 'defaultError',
+      //   message: payload => !payload.msg ? 'Oops... Erro inesperado.' : payload.msg,
+      //   options: { type: 'error', icon: 'times'}
+      // }
+    ]
   },
 
   /*
