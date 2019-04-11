@@ -20,12 +20,13 @@
     import Content from '@/components/template/Content'
     import Footer from '@/components/template/Footer'
     import { mapGetters, mapMutations } from 'vuex'
+
     export default{
         components:{
           appHeader: Header,
           appMenu: Menu,
           appContent: Content,
-          appFooter: Footer
+          appFooter: Footer,
         },
         methods: {
           ...mapMutations(['toggleMenu'])

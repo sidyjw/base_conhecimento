@@ -8,7 +8,7 @@
 			<i class="fa fa-angle-down"></i>
 		</div>
 		<div class="user-dropdown-content">
-			<nuxt-link to="/">
+			<nuxt-link to="/admin">
 				<i class="fa fa-cogs"></i>
 				 Administração
 			</nuxt-link>
