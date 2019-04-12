@@ -45,7 +45,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-      '@/plugins/page-title'
+      '@/plugins/page-title',
+      '@/plugins/toasted',
+      '@/plugins/show-error'
   ],
 
   /*
@@ -54,7 +56,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/toast',
+    // '@nuxtjs/toast',
     'nuxt-fontawesome',
     'bootstrap-vue/nuxt'
   ],
@@ -68,22 +70,29 @@ module.exports = {
   /*
   ** Toast module configuration
   */
-  toast: { // Global configuration
-    iconPack: 'fontawesome',
-    duration: 3000,
-    register: [ // Register custom toasts
-      {
-        name: 'defaultSuccess',
-        message: 'Operação realizada com sucesso!',
-        options: { type: 'success', icon: 'check'}
-      },
-      // {
-      //   name: 'defaultError',
-      //   message: payload => !payload.msg ? 'Oops... Erro inesperado.' : payload.msg,
-      //   options: { type: 'error', icon: 'times'}
-      // }
-    ]
-  },
+  // toast: { // Global configuration
+  //   iconPack: 'fontawesome',
+  //   duration: 3000,
+  //   register: [ // Register custom toasts
+  //     {
+  //       name: 'defaultSuccess',
+  //       message: 'Operação realizada com sucesso!',
+  //       options: { type: 'success', icon: 'check'}
+  //     },
+	 //   {
+	 //      name: 'my-error',
+	 //      message: 'Oops...Something went wrong',
+	 //      options: {
+	 //        type: 'error'
+	 //      }
+	 //    }
+  //     // {
+  //     //   name: 'defaultError',
+  //     //   message: payload => !payload.msg ? 'Oops... Erro inesperado.' : payload.msg,
+  //     //   options: { type: 'error', icon: 'times'}
+  //     // }
+  //   ]
+  // },
 
   /*
   ** Build configuration

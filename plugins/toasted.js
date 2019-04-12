@@ -6,7 +6,10 @@ const config = {
 	duration: 3000
 }
 
-Vue.use(Toasted, config)
+Vue.use(Toasted, {
+	iconPack: 'fontawesome',
+	duration: 3000
+})
 
 Vue.toasted.register(
 	'defaultSuccess',

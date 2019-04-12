@@ -54,6 +54,7 @@
 		},
 		async created(){
 			this.stat = await this.getStats()
+			this.$showError()
 		}
 	}
 </script>
