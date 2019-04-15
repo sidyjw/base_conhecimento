@@ -9,4 +9,3 @@
 // 		this.$toasted.defaultError()
 // 	}
 // }
-

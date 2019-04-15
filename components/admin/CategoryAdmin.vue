@@ -5,11 +5,9 @@
 </template>
 
 <script>
-	export default{
-		name: 'CategoryAdmin'
-	}
+export default {
+	name: 'CategoryAdmin',
+}
 </script>
 
-<style>
-
-</style>
+<style></style>
