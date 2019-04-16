@@ -86,17 +86,19 @@
 		<hr />
 		<b-table hover striped :items="users" :fields="fields" ref="table">
 			<template slot="actions" slot-scope="data">
-				<b-button
-					variant="warning"
-					@click="loadUser(data.item)"
-					class="mr-2"
-					><i class="fas fa-edit"></i
-				></b-button>
-				<b-button
-					variant="danger"
-					@click="loadUser(data.item, 'remove')"
-					><i class="fas fa-trash-alt"></i
-				></b-button>
+				<div class="d-flex justify-content-around">
+					<b-button
+						variant="warning"
+						@click="loadUser(data.item)"
+						class="mr-2"
+						><i class="fas fa-edit"></i
+					></b-button>
+					<b-button
+						variant="danger"
+						@click="loadUser(data.item, 'remove')"
+						><i class="fas fa-trash-alt"></i
+					></b-button>
+				</div>
 			</template>
 		</b-table>
 	</div>
