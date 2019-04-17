@@ -3,7 +3,7 @@
 		<b-form>
 			<input type="hidden" id="category-id" v-model="category.id" />
 			<b-row>
-				<b-col xm="12">
+				<b-col xs="12">
 					<b-form-group
 						description="Nome da categoria."
 						label="Digite o nome da categoria"
@@ -12,47 +12,47 @@
 						<b-form-input
 							id="category-name"
 							v-model="category.name"
+							:readonly="readonly"
 						></b-form-input>
 					</b-form-group>
 				</b-col>
 			</b-row>
 			<b-row>
-				<b-col xm="12">
+				<b-col xs="12">
 					<b-button
 						v-show="mode === 'save'"
 						variant="primary"
-						@click="saveCategory"
+						@click="save"
 						mr-2
 						>Salvar</b-button
 					>
 					<b-button
-						v-show="mode === 'delete'"
+						v-show="mode === 'remove'"
 						variant="danger"
-						@click="saveCategory"
+						@click="remove"
 						mr-2
 						>Excluir</b-button
 					>
-					<b-button variant="secondary" @click="clearCategory"
+					<b-button variant="secondary" @click="reset"
 						>Cancelar</b-button
 					>
 				</b-col>
 			</b-row>
 		</b-form>
 		<hr />
-		<b-table
-			hover
-			striped
-			:items="filteredCategory"
-			ref="table"
-			:fields="fields"
-		>
+		<b-table hover striped :items="categories" ref="table" :fields="fields">
 			<template slot="actions" slot-scope="data">
 				<div class="d-flex justify-content-around">
-					<b-button variant="warning" mr-2
+					<b-button
+						variant="warning"
+						@click="loadCategory(data.item)"
+						mr-2
 						><i class="fas fa-edit"></i
 					></b-button>
 
-					<b-button variant="danger"
+					<b-button
+						variant="danger"
+						@click="loadCategory(data.item, 'remove')"
 						><i class="fas fa-trash-alt"></i
 					></b-button>
 				</div>
@@ -87,27 +87,18 @@ export default {
 				label: 'Ações',
 			},
 		},
-		categoryes: [],
+		categories: [],
 	}),
 	mounted() {
-		this.loadCategoryes()
+		this.loadCategories()
 	},
 	computed: {
-		filteredCategory() {
-			if (this.category.name) {
-				const result = this.categoryes.filter(category =>
-					category.name
-						.toLowerCase()
-						.includes(this.category.name.toLowerCase()),
-				)
-				return result
-			}
-
-			return this.categoryes
+		readonly() {
+			return this.mode === 'remove' ? true : false
 		},
 	},
 	methods: {
-		saveCategory() {
+		save() {
 			const method = this.category.id ? 'put' : 'post'
 			const id = this.category.id ? `/${this.category.id}` : ''
 			// Aqui usa quando tiver o back-end
@@ -115,25 +106,45 @@ export default {
 
 			//A linha abaixo é temporaria
 			if (method === 'put') {
-				const categoryIndex = this.categoryes.findIndex(
+				const categoryIndex = this.categories.findIndex(
 					category => category.id === this.category.id,
 				)
-				this.categoryes[categoryIndex] = this.category
+				this.categories[categoryIndex] = this.category
 				this.$refs.table.refresh()
 			} else {
 				this.category.id = Date.now()
-				this.categoryes.push(this.category)
+				this.categories.push(this.category)
 			}
 
 			this.$toasted.global.defaultSuccess()
-			this.clearCategory()
+			this.reset()
 		},
-		clearCategory() {
+		reset() {
 			this.mode = 'save'
 			this.category = {}
+			// this.loadCategories()
 		},
-		loadCategoryes() {
-			const categoryes = [
+		remove() {
+			const categoryId = this.category.id
+			// Aqui usa quando tiver o back-end
+			//this.$axios.delete()
+
+			//Remover o bloc abaixo
+			this.categories = this.categories.filter(
+				category => category.id !== categoryId,
+			)
+			this.$refs.table.refresh()
+
+			this.$toasted.global.defaultSuccess()
+			this.reset()
+		},
+		loadCategory(category, mode = 'save') {
+			console.log(category)
+			this.mode = mode
+			this.category = { ...category }
+		},
+		loadCategories() {
+			const categories = [
 				{
 					id: 1,
 					name: 'Curso Android',
@@ -154,7 +165,7 @@ export default {
 				},
 			]
 
-			this.categoryes = categoryes
+			this.categories = categories
 		},
 	},
 }
