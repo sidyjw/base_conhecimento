@@ -109,7 +109,19 @@
 					></b-button>
 				</div>
 			</template>
+
 		</b-table>
+			<b-row>
+				<b-col>
+					<b-pagination
+					  size="md"
+				      v-model="page"
+				      :total-rows="count"
+				      :per-page="limit"
+				      aria-controls="my-table"
+				    ></b-pagination>	
+				</b-col>
+			</b-row>
 	</div>
 </template>
 
@@ -123,6 +135,9 @@ export default {
 	},
 	data: () => ({
 		mode: 'save',
+		page: 1,
+		limit: 2,
+		count: 6,
 		article: {
 			id: null,
 			articleId: '',
@@ -135,9 +150,6 @@ export default {
 		articles: [],
 		categories: [],
 		users: [],
-		page: 1,
-		limit: 0,
-		count: 0,
 		fields: {
 			id: {
 				label: 'Código',
@@ -156,6 +168,11 @@ export default {
 			},
 		},
 	}),
+	watch:{
+		page(){
+			this.loadArticles()
+		}
+	},
 	mounted() {
 		this.loadCategories()
 		this.loadArticles()
@@ -240,6 +257,7 @@ export default {
 			}))
 		},
 		loadArticles() {
+			const page = this.page - 1
 			const articles = [
 				{
 					id: 1,
@@ -261,7 +279,7 @@ export default {
 				},
 			]
 
-			this.articles = articles
+			this.articles = articles.slice(page, this.limit)
 		},
 		loadUsers(){
 			const users = [
