@@ -41,12 +41,12 @@
 						v-if="mode === 'save'"
 						description="Nome da categoria."
 						label="Categoria"
-						label-for="article-name"
+						label-for="article-category"
 					>
 						<b-form-select
-							id="article-name"
-							v-model="article.name"
-							:options="articles"
+							id="article-category"
+							v-model="article.categoryId"
+							:options="categories"
 						/>
 					</b-form-group>
 					<b-form-group
@@ -61,7 +61,7 @@
 							:options="users"
 						/>
 					</b-form-group>
-					<b-form-group label="Conteúdo">
+					<b-form-group label="Conteúdo" v-if="mode === 'save'">
 						<VueEditor
 							v-model="article.content"
 							placeholder="Informe o Conteúdo"
@@ -97,14 +97,14 @@
 				<div class="d-flex justify-content-around">
 					<b-button
 						variant="warning"
-						@click="loadCategory(data.item)"
+						@click="loadArticle(data.item)"
 						mr-2
 						><i class="fas fa-edit"></i
 					></b-button>
 
 					<b-button
 						variant="danger"
-						@click="loadCategory(data.item, 'remove')"
+						@click="loadArticle(data.item, 'remove')"
 						><i class="fas fa-trash-alt"></i
 					></b-button>
 				</div>
@@ -124,10 +124,13 @@ export default {
 	data: () => ({
 		mode: 'save',
 		article: {
+			id: null,
+			articleId: '',
+			categoryId: '',
 			name: '',
-			userId: '',
 			description: '',
 			imageUrl: '',
+			content: ''
 		},
 		articles: [],
 		categories: [],
@@ -155,6 +158,8 @@ export default {
 	}),
 	mounted() {
 		this.loadCategories()
+		this.loadArticles()
+		this.loadUsers()
 	},
 	computed: {
 		readonly() {
@@ -163,21 +168,21 @@ export default {
 	},
 	methods: {
 		save() {
-			const method = this.category.id ? 'put' : 'post'
-			const id = this.category.id ? `/${this.category.id}` : ''
+			const method = this.article.id ? 'put' : 'post'
+			const id = this.article.id ? `/${this.article.id}` : ''
 			// Aqui usa quando tiver o back-end
 			// this.$axios[method]()
 
 			//A linha abaixo é temporaria
 			if (method === 'put') {
 				const categoryIndex = this.categories.findIndex(
-					category => category.id === this.category.id,
+					category => category.id === this.article.id,
 				)
-				this.categories[categoryIndex] = this.category
+				this.categories[categoryIndex] = this.article
 				this.$refs.table.refresh()
 			} else {
-				this.category.id = Date.now()
-				this.categories.push(this.category)
+				this.article.id = Date.now()
+				this.categories.push(this.article)
 			}
 
 			this.$toasted.global.defaultSuccess()
@@ -185,11 +190,11 @@ export default {
 		},
 		reset() {
 			this.mode = 'save'
-			this.category = {}
+			this.article = {}
 			// this.loadCategories()
 		},
 		remove() {
-			const categoryId = this.category.id
+			const categoryId = this.article.id
 			// Aqui usa quando tiver o back-end
 			//this.$axios.delete()
 
@@ -202,10 +207,10 @@ export default {
 			this.$toasted.global.defaultSuccess()
 			this.reset()
 		},
-		loadCategory(category, mode = 'save') {
-			console.log(category)
+		loadArticle(article, mode = 'save') {
+			console.log(article)
 			this.mode = mode
-			this.category = { ...category }
+			this.article = { ...article }
 		},
 		loadCategories() {
 			const categories = [
@@ -229,8 +234,54 @@ export default {
 				},
 			]
 
-			this.categories = categories
+			this.categories = categories.map(category => ({
+				text: category.path,
+				value: category.id
+			}))
 		},
+		loadArticles() {
+			const articles = [
+				{
+					id: 1,
+					name: 'Dez motivos para usar VueJS',
+					description: 'Uma lista que prova o quão incrível é o Vue...',
+					actions: null,
+				},
+				{
+					id: 2,
+					name: 'ReactJS - Por que é tão popular?',
+					description: 'Iremos ver qual é o motivo dessa lib ter se popularizado tanto',
+					actions: null,
+				},
+				{
+					id: 3,
+					name: 'Angular - O ínicio de uma nova Era',
+					description: 'Por que podemos dizer que o Angular marcou o ínicio de uma nova era no Front-End',
+					actions: null,
+				},
+			]
+
+			this.articles = articles
+		},
+		loadUsers(){
+			const users = [
+				{
+					id: 1,
+					name: 'Sidiney',
+					email: 'sid@test.com'
+				},
+				{
+					id: 2,
+					name: 'Alan',
+					email: 'alan@test.com'
+				},
+			]
+
+			this.users = users.map(user => ({
+				value: user.id,
+				text: `${user.name} - ${user.email}`
+			}))
+		}
 	},
 }
 </script>
