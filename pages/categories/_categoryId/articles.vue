@@ -7,7 +7,7 @@
 			/>
 		<ul>
 			<li v-for="article in articles" :key="article.id">
-				{{ article.name }}
+				<ArticleItem :article="article" />
 			</li>
 		</ul>
 		<div class="load-more">
@@ -23,8 +23,12 @@
 </template>
 
 <script>
+	import ArticleItem from '@/components/article/ArticleItem'
 	export default{
 		name: 'ArticleByCategory',
+		components: {
+			ArticleItem
+		},
 		data: () => ({
 			category: {},
 			articles: [],
