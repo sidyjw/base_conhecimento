@@ -14,7 +14,7 @@
 			<button 
 				v-if="loadMore" 
 				@click="getArticles" 
-				class="btn btn-lg btn-outline-primary">
+				class="btn btn-sm btn-outline-primary">
 					Carregar Mais Artigos
 			</button>
 		</div>
