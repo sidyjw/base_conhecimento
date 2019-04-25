@@ -41,17 +41,26 @@
 		methods: {
 			getTreeData(){
 				const items =  [
-		            {name: 'API'},
-		            {name: 'Back-End'},
+		            {name: 'API', id: 1},
+		            {name: 'Back-End', id: 2},
 		            {name: 'Front-End', children: [
-		              {name: 'CSS'},
-		              {name: 'FlexBox'},
-		              {name: 'VueJS'},
+		              {name: 'CSS', id: 3},
+		              {name: 'FlexBox', id: 4},
+		              {name: 'VueJS', id: 5},
 		            ]},
 		        ]
 				return Promise.resolve(items)
+			},
+			onNodeSelect(node){
+				this.$router.push({
+					name: 'categories-categoryId-articles',
+					params: { id: node.id }
+				})
 			}
-		}
+		},
+		mounted(){
+			this.$refs.tree.$on('node:selected', this.onNodeSelect)
+		},
 	}
 </script>
 
